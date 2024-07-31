@@ -36,3 +36,8 @@ class ScooterOrderData:
             'comment_for_courier': 'Можно не торопиться'
         },
     }
+
+
+class NamesOfButtons:
+    WANT_TO_MAKE_ORDER = "Хотите оформить заказ"
+    ORDER_MADE = "Заказ оформлен"

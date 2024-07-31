@@ -1,7 +1,6 @@
 import allure
 import pytest
 
-from sprint_6.conftest import driver
 from sprint_6.locators.locators_main_page import LocatorsMainPage
 from sprint_6.pages.home_page import HomePage
 from sprint_6.utils.test_literals import ImportantQuestions
@@ -45,8 +44,8 @@ class TestHomePage:
     @allure.description('Проверка коррекнтного перехода на страницу Order из header')
     @pytest.mark.parametrize('order_button',
                              [
-                                 LocatorsMainPage.order_button_on_header,
-                                 LocatorsMainPage.order_button_on_home_page
+                                 LocatorsMainPage.ORDER_BUTTON_ON_HEADER,
+                                 LocatorsMainPage.ORDER_BUTTON_ON_MAIN_PAGE
                              ]
                              )
     def test_click_on_order_button_from_header_and_home_sections(self, driver, order_button):

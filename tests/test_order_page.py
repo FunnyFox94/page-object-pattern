@@ -1,11 +1,10 @@
 import allure
 import pytest
 
-from sprint_6.conftest import driver
 from sprint_6.locators.locators_main_page import LocatorsMainPage
 from sprint_6.pages.home_page import HomePage
 from sprint_6.pages.order_page import OrderPage
-from sprint_6.utils.test_literals import ScooterOrderData
+from sprint_6.utils.test_literals import ScooterOrderData, NamesOfButtons as names
 import sprint_6.utils.urls as url
 
 
@@ -19,10 +18,10 @@ class TestOrderPage:
     @allure.description('Проверка оформления заказа с использованием двух наборов данных')
     @pytest.mark.parametrize('order_button, data_set',
                              [
-                                 (LocatorsMainPage.order_button_on_header, 'data_set_1'),
-                                 (LocatorsMainPage.order_button_on_header, 'data_set_2'),
-                                 (LocatorsMainPage.order_button_on_home_page, 'data_set_1'),
-                                 (LocatorsMainPage.order_button_on_home_page, 'data_set_2'),
+                                 (LocatorsMainPage.ORDER_BUTTON_ON_HEADER, 'data_set_1'),
+                                 (LocatorsMainPage.ORDER_BUTTON_ON_HEADER, 'data_set_2'),
+                                 (LocatorsMainPage.ORDER_BUTTON_ON_MAIN_PAGE, 'data_set_1'),
+                                 (LocatorsMainPage.ORDER_BUTTON_ON_MAIN_PAGE, 'data_set_2'),
                              ])
     def test_create_complete_order_header_and_page_order_buttons_positive(self, driver, order_button, data_set):
         order_page = OrderPage(driver)
@@ -50,8 +49,8 @@ class TestOrderPage:
     @allure.description('Проверка оформления заказа с использованием одного набора данных')
     @pytest.mark.parametrize('order_button',
                              [
-                                 LocatorsMainPage.order_button_on_header,
-                                 LocatorsMainPage.order_button_on_home_page,
+                                 LocatorsMainPage.ORDER_BUTTON_ON_HEADER,
+                                 LocatorsMainPage.ORDER_BUTTON_ON_MAIN_PAGE,
                              ])
     def test_create_order_until_order_complete_positive(self, driver, order_button):
         page = OrderPage(driver)
@@ -64,8 +63,8 @@ class TestOrderPage:
 
         page.fill_rent_data(ScooterOrderData.data_sets['data_set_1'])
         page.click_final_order_button()
-        assert "Хотите оформить заказ" in page.get_modal_header().text
+        assert names.WANT_TO_MAKE_ORDER in page.get_modal_header().text
 
         page.click_yes_order_button()
 
-        assert "Заказ оформлен" in page.get_order_completed_header().text
+        assert names.ORDER_MADE in page.get_order_completed_header().text
